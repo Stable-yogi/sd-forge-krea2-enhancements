@@ -28,3 +28,10 @@ GPL-3.0. Prompt-Adherence engine ported from **capitan01R/ComfyUI-Krea2T-Enhance
 per-layer rebalance technique from **huwhitememes/comfyui-krea2-conditioning** (Apache-2.0),
 a fork of **nova452/ComfyUI-ConditioningKrea2Rebalance**. Thanks to all three authors.
 Integration & packaging by **Stable Yogi** — [stableyogi.com](https://stableyogi.com).
+
+---
+
+### More free tools by Stable Yogi
+
+Small, free, open tools for local AI art — Forge / Forge Neo, AUTOMATIC1111, and ComfyUI.
+Browse them all at **[github.com/Stable-yogi](https://github.com/Stable-yogi)** · more at **[stableyogi.com](https://stableyogi.com)**.
