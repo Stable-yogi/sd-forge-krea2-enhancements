@@ -18,6 +18,10 @@ By **[Stable Yogi](https://stableyogi.com)**.
    `https://github.com/Stable-yogi/sd-forge-krea2-enhancements` (or drop the folder into `extensions/`).
 3. Restart Forge → open the **"Krea 2 Enhancement Suite — Stable Yogi"** accordion in txt2img.
 
+> **On Forge Neo 2.28 or newer, update the base extension to v1.3.3+ as well.** 2.28 changed the
+> Krea 2 model internals; older versions of *both* extensions silently did nothing (no error, no
+> effect). v1.0.1 here + v1.3.3 there fixes it.
+
 ## Usage tips
 - Start with **Adherence strength 1.0**; raise toward 2.0 for stubborn prompts.
 - Detail Boost PRO: the deep taps (positions 8–11) carry identity/texture — boost those.

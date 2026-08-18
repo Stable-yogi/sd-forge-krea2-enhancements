@@ -44,10 +44,16 @@ _TOKEN_REL_CAP = 0.75
 
 
 def _get_krea2_dit():
-    """The loaded SingleStreamDiT, or None if the current model isn't Krea 2."""
+    """The loaded SingleStreamDiT, or None if the current model isn't Krea 2.
+
+    Identified by the txtfusion block ALONE — that is the module this engine wraps, and it is
+    the one attribute every Forge generation agrees on. Do not also demand _unpack_context:
+    Forge Neo 2.28 dropped it from the native DiT (the taps arrive already unpacked), and that
+    single missing attribute silently switched this whole engine off on 2.28.
+    """
     try:
         dm = shared.sd_model.forge_objects.unet.model.diffusion_model
-        if hasattr(dm, "txtfusion") and hasattr(dm, "_unpack_context"):
+        if hasattr(dm, "txtfusion"):
             return dm
     except Exception:
         pass
@@ -133,6 +139,9 @@ class Krea2EnhancementSuite(scripts.Script):
                     }
                     p.extra_generation_params["Krea2 Detail Boost PRO"] = f"custom (s={db_strength:g})"
             # (when disabled, leave the base extension's own Detail Boost setting alone)
+        elif db_enable:
+            print("[krea2-suite] Detail Boost PRO NOT applied: the sd-forge-krea2 base extension "
+                  "is missing (github.com/Stable-yogi/sd-forge-krea2).")
 
         # --- Prompt-Adherence engine (txtfusion double-run) ---
         self._restore_adherence()
@@ -145,6 +154,11 @@ class Krea2EnhancementSuite(scripts.Script):
                 tf.forward = _adherence_forward(tf._sy_orig_forward, float(adh_strength))
                 self._patched_tf = tf
                 p.extra_generation_params["Krea2 Prompt Adherence"] = f"s={adh_strength:g}"
+            else:
+                # Never fail silently: a no-op here is exactly how this engine "did nothing"
+                # on Forge 2.28 without anyone being able to see why.
+                print("[krea2-suite] Prompt-Adherence NOT applied: the loaded model has no Krea 2 "
+                      "txtfusion block — is a Krea 2 checkpoint selected?")
 
     def postprocess(self, p, processed, *args):
         self._restore_adherence()
